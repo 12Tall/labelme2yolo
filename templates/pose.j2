@@ -1,0 +1,12 @@
+path: '{{ root_dir }}'
+train: 'images/train'
+val: 'images/val'
+test: 'images/test'
+
+{# | 管道运算符 #}
+kpt_shape: [{{ key_points | length }},{{ dim }}]
+flip_dix: {{ range(key_points | length) | list }}
+
+names: 
+{% for name in names %}  {{loop.index0}}: {{ name }}
+{% endfor %}

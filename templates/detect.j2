@@ -1,0 +1,8 @@
+path: '{{ root_dir }}'
+train: 'images/train'
+val: 'images/val'
+test: 'images/test'
+
+names: 
+{% for name in names %}  {{loop.index0}}: {{ name }}
+{% endfor %}
