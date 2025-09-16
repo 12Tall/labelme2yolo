@@ -27,7 +27,9 @@ class Converter():
         ymin, ymax = min(y1, y2), max(y1, y2)
         x_center, y_center = (x1 + x2) / 2.0, (y1 + y2) / 2.0
         bbox_w, bbox_h = xmax - xmin, ymax - ymin
-        return (x_center, y_center), (bbox_w, bbox_h), (xmin, xmax, ymin, ymax)
+        # return (x_center, y_center), (bbox_w, bbox_h), (xmin, xmax, ymin, ymax)
+        return (x_center/img_w, y_center/img_h), (bbox_w/img_w, bbox_h/img_h), (xmin/img_w, xmax/img_w, ymin/img_h, ymax/img_h)
+
 
     def extract_points_in_bbox(points: List[Dict[str, Any]],
                                bbox: Tuple[float, float, float, float],
@@ -60,12 +62,13 @@ class Converter():
             point_group = point.get('group_id')
             p_vis = 1 if point['flags'].get('hidden', False) else 2
             # print(x1, x2)
-            if (point_group == shape_group and xmin <= p_x <= xmax and ymin <= p_y <= ymax):
+            if (point_group == shape_group and xmin <= p_x/img_width <= xmax and ymin <= p_y/img_height <= ymax):
                 if dim == 2:
                     bbox_keypoints_dict[point_label] = [p_x, p_y]
                 else:
                     bbox_keypoints_dict[point_label] = [p_x, p_y, p_vis]
 
+        print(bbox_keypoints_dict)
         for k in label_names["point"]:
             k_str = ""
             if k in bbox_keypoints_dict:
