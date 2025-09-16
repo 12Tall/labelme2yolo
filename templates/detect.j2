@@ -1,8 +1,1 @@
-path: '{{ root_dir }}'
-train: 'train'
-val: 'val'
-test: 'test'
-
-names: 
-{% for name in names %}  {{loop.index0}}: {{ name }}
-{% endfor %}
+{% include "base.j2" %}

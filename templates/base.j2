@@ -1,0 +1,8 @@
+path: '{{ root_dir }}'  # 相对路径的起始位置是程序的cwd，而不是.yaml 所在目录
+train: 'train'
+val: 'val'
+test: 'test'
+
+names: 
+{% for name in names %}  {{loop.index0}}: {{ name }}
+{% endfor %}
